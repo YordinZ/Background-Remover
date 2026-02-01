@@ -84,7 +84,7 @@ function App() {
         {/* LINKS */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
-            href="https://github.com/YordinZ"
+            href="https://github.com/YordinZ/Background-Remover"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center gap-2 px-8 py-3 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105"
