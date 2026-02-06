@@ -3,8 +3,6 @@
 Aplicación que elimina fondos de imágenes automáticamente utilizando **inteligencia artificial**.  
 Incluye una **demo web interactiva** y un **backend en Python** para el procesamiento de imágenes.
 
-👉 Proyecto ideal para portafolio: combina **React + IA + Python**.
-
 ---
 
 ## 🚀 Demo Web
