@@ -3,6 +3,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import demoBefore from "../assets/demo-before.png";
 import demoAfter from "../assets/demo-after.jpg";
 
+const API_URL = "https://background-remover-backend-0q14.onrender.com/docs";
+
 const ImageDemo = () => {
   const [sliderPosition, setSliderPosition] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -50,12 +52,15 @@ const ImageDemo = () => {
       const formData = new FormData();
       formData.append("file", beforeFile);
 
-      const response = await fetch("http://localhost:8000/remove-bg", {
+      const response = await fetch(`${API_URL}/remove-bg`, {
         method: "POST",
         body: formData,
       });
 
-      if (!response.ok) throw new Error("Error al procesar la imagen");
+      if (!response.ok) {
+        const msg = await response.text();
+        throw new Error(msg || "Error al procesar la imagen");
+      }
 
       const blob = await response.blob();
       const imageUrl = URL.createObjectURL(blob);
@@ -63,9 +68,9 @@ const ImageDemo = () => {
       if (afterUrl) URL.revokeObjectURL(afterUrl);
       setAfterUrl(imageUrl);
       setSliderPosition(50);
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      alert("Error quitando el fondo");
+      alert(error?.message ?? "Error quitando el fondo");
     } finally {
       setLoading(false);
     }
@@ -202,8 +207,8 @@ const ImageDemo = () => {
         {afterUrl
           ? "Arrastra para comparar el antes y después"
           : beforeFile
-          ? "Presiona “Quitar fondo” para ver la comparación"
-          : "Modo demo: arrastra para ver el ejemplo o sube una imagen"}
+            ? "Presiona “Quitar fondo” para ver la comparación"
+            : "Modo demo: arrastra para ver el ejemplo o sube una imagen"}
       </p>
     </div>
   );
