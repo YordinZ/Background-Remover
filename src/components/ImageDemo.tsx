@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import demoBefore from "../assets/demo-before.png";
 import demoAfter from "../assets/demo-after.jpg";
 
-const API_URL = "https://background-remover-backend-0q14.onrender.com/docs";
+const API_URL = "https://background-remover-backend-0q14.onrender.com";
 
 const ImageDemo = () => {
   const [sliderPosition, setSliderPosition] = useState(50);
