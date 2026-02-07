@@ -94,7 +94,7 @@ function App() {
           </a>
 
           <a
-            href="#inicio"
+            href="https://yordinz.github.io/PORTFOLIO/#projects"
             className="group flex items-center gap-2 px-8 py-3 bg-gray-800 border border-gray-700 rounded-lg font-semibold text-white hover:bg-gray-700 transition-all duration-300"
           >
             <ExternalLink className="w-5 h-5" />
