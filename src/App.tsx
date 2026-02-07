@@ -94,11 +94,15 @@ function App() {
           </a>
 
           <a
-            href="https://yordinz.github.io/PORTFOLIO/#projects"
-            className="group flex items-center gap-2 px-8 py-3 bg-gray-800 border border-gray-700 rounded-lg font-semibold text-white hover:bg-gray-700 transition-all duration-300"
+            onClick={() => {
+              document
+                .getElementById("projects")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="group cursor-pointer flex items-center gap-2 px-8 py-3 bg-gray-800 border border-gray-700 rounded-lg font-semibold text-white hover:bg-gray-700 transition-all duration-300"
           >
             <ExternalLink className="w-5 h-5" />
-            Volver al inicio
+            Volver a Projects
           </a>
         </div>
       </div>
