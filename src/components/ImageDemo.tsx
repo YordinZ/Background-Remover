@@ -3,7 +3,10 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import demoBefore from "../assets/demo-before.png";
 import demoAfter from "../assets/demo-after.jpg";
 
-const API_URL = "https://background-remover-backend-0q14.onrender.com";
+// ✅ Usa .env: VITE_API_URL=https://TU-USUARIO-TU-SPACE.hf.space
+const API_URL = import.meta.env.VITE_API_URL as string;
+
+const MAX_MB = 8;
 
 const ImageDemo = () => {
   const [sliderPosition, setSliderPosition] = useState(50);
@@ -36,6 +39,13 @@ const ImageDemo = () => {
     return URL.createObjectURL(beforeFile);
   }, [beforeFile]);
 
+  // ✅ Evita memory leaks del objectURL del "before"
+  useEffect(() => {
+    return () => {
+      if (beforeUrl) URL.revokeObjectURL(beforeUrl);
+    };
+  }, [beforeUrl]);
+
   const updatePosition = (clientX: number) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
@@ -46,6 +56,18 @@ const ImageDemo = () => {
 
   const handleRemoveBg = async () => {
     if (!beforeFile) return;
+
+    // ✅ Validación simple de tamaño
+    const sizeMB = beforeFile.size / (1024 * 1024);
+    if (sizeMB > MAX_MB) {
+      alert(`La imagen es muy grande (máx ${MAX_MB}MB).`);
+      return;
+    }
+
+    if (!API_URL) {
+      alert("Falta VITE_API_URL en tu .env");
+      return;
+    }
 
     setLoading(true);
     try {
@@ -60,6 +82,13 @@ const ImageDemo = () => {
       if (!response.ok) {
         const msg = await response.text();
         throw new Error(msg || "Error al procesar la imagen");
+      }
+
+      // ✅ Asegura que el servidor devolvió una imagen
+      const ct = response.headers.get("content-type") || "";
+      if (!ct.includes("image")) {
+        const msg = await response.text().catch(() => "");
+        throw new Error(msg || "Respuesta inválida del servidor");
       }
 
       const blob = await response.blob();
