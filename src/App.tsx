@@ -78,6 +78,7 @@ function App() {
             <TechBadge name="rembg" color="bg-pink-500" />
             <TechBadge name="ONNX Runtime" color="bg-purple-500" />
             <TechBadge name="PIL" color="bg-green-500" />
+            <TechBadge name="API (Backend)" color="bg-orange-500" />
           </div>
         </div>
 
