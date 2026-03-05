@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import demoBefore from "../assets/demo-before.png";
 import demoAfter from "../assets/demo-after.jpg";
 
-// ✅ Usa .env: VITE_API_URL=https://TU-USUARIO-TU-SPACE.hf.space
+//  Usa .env: VITE_API_URL=https://TU-USUARIO-TU-SPACE.hf.space
 const API_URL = import.meta.env.VITE_API_URL as string;
 
 const MAX_MB = 8;
@@ -18,7 +18,7 @@ const ImageDemo = () => {
 
   const [isDragging, setIsDragging] = useState(false);
 
-  // ✅ Demo guiado: solo cuando no hay imagen subida y no hay resultado
+  //  Demo guiado: solo cuando no hay imagen subida y no hay resultado
   const isDemoMode = !beforeFile && !afterUrl;
 
   // Soltar drag aunque el mouse/touch salga del cuadro
@@ -39,7 +39,7 @@ const ImageDemo = () => {
     return URL.createObjectURL(beforeFile);
   }, [beforeFile]);
 
-  // ✅ Evita memory leaks del objectURL del "before"
+  //  Evita memory leaks del objectURL del "before"
   useEffect(() => {
     return () => {
       if (beforeUrl) URL.revokeObjectURL(beforeUrl);
@@ -57,7 +57,7 @@ const ImageDemo = () => {
   const handleRemoveBg = async () => {
     if (!beforeFile) return;
 
-    // ✅ Validación simple de tamaño
+    //  Validación simple de tamaño
     const sizeMB = beforeFile.size / (1024 * 1024);
     if (sizeMB > MAX_MB) {
       alert(`La imagen es muy grande (máx ${MAX_MB}MB).`);
@@ -105,16 +105,16 @@ const ImageDemo = () => {
     }
   };
 
-  // ✅ Slider activo en demo (isDemoMode) o cuando hay resultado (afterUrl)
+  //  Slider activo en demo (isDemoMode) o cuando hay resultado (afterUrl)
   const isCompareMode = isDemoMode || !!afterUrl;
 
-  // ✅ Base:
+  //  Base:
   // - demo: demoAfter
   // - resultado: afterUrl
   // - imagen subida sin resultado: beforeUrl
   const baseSrc = isDemoMode ? demoAfter : afterUrl ?? beforeUrl ?? demoAfter;
 
-  // ✅ Capa recortada:
+  //  Capa recortada:
   // - demo: demoBefore
   // - resultado: beforeUrl (con fondo real)
   const overlaySrc = isDemoMode ? demoBefore : beforeUrl ?? demoBefore;
@@ -178,7 +178,7 @@ const ImageDemo = () => {
             draggable={false}
           />
 
-          {/* ✅ Comparación (solo en demo o con resultado) */}
+          {/* Comparación */}
           {isCompareMode && (
             <>
               {/* Capa recortada */}
@@ -223,7 +223,6 @@ const ImageDemo = () => {
             </>
           )}
 
-          {/* ✅ Si NO es compare mode (imagen subida sin resultado), solo label simple */}
           {!isCompareMode && (
             <div className="absolute top-4 left-4 px-3 py-1 bg-gray-900/90 backdrop-blur-sm rounded-full text-xs font-semibold text-gray-300">
               Original
